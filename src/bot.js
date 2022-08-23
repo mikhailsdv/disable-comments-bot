@@ -7,15 +7,15 @@ const credits = trimMessage(`
 	Hosted on [Deta.sh](https://deta.sh)
 	GitHub: [mikhailsdv/disable-comments-bot](https://guthub.com/mikhailsdv/disable-comments-bot)
 	Author's blog: @FilteredInternet
+	Report a bug: @mikhailsdv
 `)
 
-const bot = new Bot(
-	process.env.BOT_TOKEN /*, {
+const bot = new Bot(process.env.BOT_TOKEN)
+/*, {
 	client: {
 		canUseWebhookReply: () => true,
 	},
 }*/
-)
 
 bot.catch(err => {
 	const ctx = err.ctx
@@ -45,6 +45,7 @@ bot.command("start", async ctx => {
 				`https://t.me/${ctx.me.username}?startgroup=add`
 			),
 			parse_mode: "Markdown",
+			disable_web_page_preview: true,
 		}
 	)
 })
@@ -61,6 +62,7 @@ bot.on("message:new_chat_members:me", async ctx => {
 		`),
 		{
 			parse_mode: "Markdown",
+			disable_web_page_preview: true,
 		}
 	)
 })
