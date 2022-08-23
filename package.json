@@ -1,0 +1,21 @@
+{
+  "name": "disable-comments-bot",
+  "version": "1.0.0",
+  "description": "Telegram-bot that deletes automatically forwarded messages from a channel to discussion chat.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "https://github.com/mikhailsdv",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikhailsdv/disable-comments-bot.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "deta": "^1.1.0",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "grammy": "^1.10.1"
+  }
+}
