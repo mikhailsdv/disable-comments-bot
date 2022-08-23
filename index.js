@@ -1,5 +1,5 @@
-require("dotenv").config({path: "./.env"})
-const bot = require("./src/bot.js")
+require("dotenv").config()
+const bot = require("./src/bot")
 const {webhookCallback} = require("grammy")
 const express = require("express")
 const expressApp = express()

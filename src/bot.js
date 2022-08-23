@@ -1,4 +1,3 @@
-require("dotenv").config({path: "../.env"})
 const {Bot, InlineKeyboard} = require("grammy")
 const {saveDeletedMessage} = require("./db")
 const {trimMessage} = require("./utils")
@@ -10,19 +9,18 @@ const credits = trimMessage(`
 	Author's blog: @FilteredInternet
 `)
 
-const bot = new Bot(process.env.BOT_TOKEN)
+const bot = new Bot(
+	process.env.BOT_TOKEN /*, {
+	client: {
+		canUseWebhookReply: () => true,
+	},
+}*/
+)
 
 bot.catch(err => {
 	const ctx = err.ctx
-	if (err?.error?.method === "deleteMessage") {
-		ctx.reply(
-			trimMessage(`
-				⚠️ Couldn't delete auto-forward message. Please grant me admin rights and permission to delete messages.
-			`)
-		)
-	} else {
-		throw err.error
-	}
+	//throw to log in deta visor
+	throw err.error
 })
 
 bot.command("start", async ctx => {
@@ -68,16 +66,23 @@ bot.on("message:new_chat_members:me", async ctx => {
 })
 
 bot.on("message:is_automatic_forward", async ctx => {
-	console.log("message:is_automatic_forward")
-	await ctx.deleteMessage()
-	await saveDeletedMessage({
-		message_id: ctx.message.message_id,
-		chat: ctx.message.chat,
-		date: ctx.message.date,
-		forward_from_chat: ctx.message.forward_from_chat,
-		forward_from_message_id: ctx.message.forward_from_message_id,
-		forward_date: ctx.message.forward_date,
-	})
+	try {
+		await ctx.deleteMessage()
+		await saveDeletedMessage({
+			message_id: ctx.message.message_id,
+			chat: ctx.message.chat,
+			date: ctx.message.date,
+			forward_from_chat: ctx.message.forward_from_chat,
+			forward_from_message_id: ctx.message.forward_from_message_id,
+			forward_date: ctx.message.forward_date,
+		})
+	} catch {
+		await ctx.reply(
+			trimMessage(`
+				⚠️ Couldn't delete auto-forward message. Please grant me admin rights and permission to delete messages.
+			`)
+		)
+	}
 })
 
 module.exports = bot
