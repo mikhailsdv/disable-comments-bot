@@ -5,7 +5,7 @@ const {trimMessage} = require("./utils")
 const credits = trimMessage(`
 	Built with [grammY](https://grammy.dev/)
 	Hosted on [Deta.sh](https://deta.sh)
-	GitHub: [mikhailsdv/disable-comments-bot](https://guthub.com/mikhailsdv/disable-comments-bot)
+	GitHub: [mikhailsdv/disable-comments-bot](https://github.com/mikhailsdv/disable-comments-bot)
 	Author's blog: @FilteredInternet
 	Report a bug: @mikhailsdv
 `)
